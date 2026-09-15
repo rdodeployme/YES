@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en-AU">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f3f0ea" />
+    <meta name="description" content="Naudic Business Pulse — daily performance, cash and inventory clarity." />
+    <title>Naudic Business Pulse</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand-block">
+          <div class="wordmark">naudic</div>
+          <div class="product-name">Business Pulse</div>
+        </div>
+
+        <nav class="main-nav" aria-label="Primary navigation">
+          <button class="nav-item active" data-page="overview"><span>01</span> Overview</button>
+          <button class="nav-item" data-page="revenue"><span>02</span> Revenue</button>
+          <button class="nav-item" data-page="marketing"><span>03</span> Marketing</button>
+          <button class="nav-item" data-page="people"><span>04</span> People</button>
+          <button class="nav-item" data-page="inventory"><span>05</span> Inventory</button>
+          <button class="nav-item" data-page="expenses"><span>06</span> Expenses</button>
+          <button class="nav-item" data-page="data"><span>07</span> Data & settings</button>
+        </nav>
+
+        <div class="sidebar-footer">
+          <div class="sync-state"><span class="sync-dot"></span> Saved locally</div>
+          <button class="text-button" id="open-settings-sidebar">Edit targets & assumptions</button>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <header class="topbar">
+          <button class="mobile-menu" id="mobile-menu" aria-label="Open navigation">Menu</button>
+          <div class="month-switcher" aria-label="Selected month">
+            <button id="previous-month" aria-label="Previous month">←</button>
+            <strong id="selected-month">September 2026</strong>
+            <button id="next-month" aria-label="Next month">→</button>
+          </div>
+          <div class="topbar-actions">
+            <button class="button secondary" id="update-today">Update today</button>
+            <button class="button primary" id="add-item">+ Add item</button>
+          </div>
+        </header>
+
+        <section class="page active" id="page-overview">
+          <div class="page-intro">
+            <div>
+              <p class="eyebrow" id="date-label">Monday, 14 September</p>
+              <h1>Your business,<br /><em>in one clear view.</em></h1>
+            </div>
+            <div class="pulse-status ahead" id="overall-status">
+              <span class="status-kicker">Month status</span>
+              <strong>Ahead of plan</strong>
+              <small id="month-progress-label">Day 14 of 30 · 46.7% complete</small>
+            </div>
+          </div>
+
+          <div class="kpi-grid" id="overview-kpis"></div>
+
+          <div class="feature-grid">
+            <article class="panel chart-panel">
+              <div class="panel-heading">
+                <div>
+                  <p class="eyebrow">Performance</p>
+                  <h2>Monthly revenue pace</h2>
+                </div>
+                <div class="legend">
+                  <span><i class="legend-line actual"></i>Actual</span>
+                  <span><i class="legend-line target"></i>Target</span>
+                  <span><i class="legend-line previous"></i>Previous month</span>
+                </div>
+              </div>
+              <div class="chart-summary" id="revenue-chart-summary"></div>
+              <div class="chart" id="revenue-chart" aria-label="Cumulative monthly revenue chart"></div>
+            </article>
+
+            <article class="panel attention-panel">
+              <div class="panel-heading">
+                <div>
+                  <p class="eyebrow">Decision support</p>
+                  <h2>What matters today</h2>
+                </div>
+                <span class="signal-count" id="signal-count">4 signals</span>
+              </div>
+              <div class="signal-group">
+                <h3>Needs attention</h3>
+                <div id="attention-list"></div>
+              </div>
+              <div class="signal-group positive-group">
+                <h3>Working well</h3>
+                <div id="positive-list"></div>
+              </div>
+            </article>
+          </div>
+
+          <div class="flow-grid">
+            <article class="panel flow-panel">
+              <div class="panel-heading">
+                <div>
+                  <p class="eyebrow">Trading performance</p>
+                  <h2>Where revenue goes</h2>
+                </div>
+                <span class="badge">MTD</span>
+              </div>
+              <div id="performance-waterfall" class="waterfall"></div>
+            </article>
+
+            <article class="panel cash-panel">
+              <div class="panel-heading">
+                <div>
+                  <p class="eyebrow">Cash view</p>
+                  <h2>Money in / money out</h2>
+                </div>
+                <span class="badge">Actual cash</span>
+              </div>
+              <div id="cash-flow"></div>
+            </article>
+
+            <article class="panel commitments-panel">
+              <div class="panel-heading">
+                <div>
+                  <p class="eyebrow">Forward view</p>
+                  <h2>Upcoming commitments</h2>
+                </div>
+                <button class="text-button" data-quick-add="inventory_purchase">Add commitment</button>
+              </div>
+              <div class="commitment-totals" id="commitment-totals"></div>
+              <div class="commitment-list" id="commitment-list"></div>
+            </article>
+          </div>
+        </section>
+
+        <section class="page" id="page-revenue">
+          <div class="section-header"><div><p class="eyebrow">Revenue</p><h1>Sales health</h1><p>Net sales, order value and the pace behind the month.</p></div></div>
+          <div class="metric-strip" id="revenue-metrics"></div>
+          <div class="feature-grid equal">
+            <article class="panel"><div class="panel-heading"><div><p class="eyebrow">Current month</p><h2>Revenue by day</h2></div></div><div class="chart" id="daily-revenue-chart"></div></article>
+            <article class="panel"><div class="panel-heading"><div><p class="eyebrow">Composition</p><h2>Revenue sources</h2></div></div><div id="revenue-source-list" class="bar-list"></div></article>
+          </div>
+        </section>
+
+        <section class="page" id="page-marketing">
+          <div class="section-header"><div><p class="eyebrow">Marketing</p><h1>Spend that earns its place</h1><p>Budget pace, acquisition efficiency and channel contribution.</p></div></div>
+          <div class="metric-strip" id="marketing-metrics"></div>
+          <div class="feature-grid equal">
+            <article class="panel"><div class="panel-heading"><div><p class="eyebrow">Budget control</p><h2>Marketing spend pace</h2></div></div><div class="chart" id="marketing-chart"></div></article>
+            <article class="panel"><div class="panel-heading"><div><p class="eyebrow">EDM</p><h2>Email performance</h2></div></div><div id="edm-summary"></div></article>
+          </div>
+          <article class="panel table-panel"><div class="panel-heading"><div><p class="eyebrow">Paid channels</p><h2>Blended marketing view</h2></div></div><div class="responsive-table"><table><thead><tr><th>Channel</th><th>Spend</th><th>Revenue</th><th>Orders</th><th>CPA</th><th>ROAS</th><th>Budget used</th><th>Pace</th></tr></thead><tbody id="channel-table"></tbody></table></div></article>
+        </section>
+
+        <section class="page" id="page-people">
+          <div class="section-header"><div><p class="eyebrow">People</p><h1>Your real team cost</h1><p>Wages, super and contractors shown as one honest monthly cost.</p></div><button class="button primary" id="add-person">+ Add person</button></div>
+          <div class="metric-strip" id="people-metrics"></div>
+          <article class="panel"><div class="panel-heading"><div><p class="eyebrow">Team register</p><h2>Monthly people costs</h2></div></div><div id="people-list" class="record-list"></div></article>
+        </section>
+
+        <section class="page" id="page-inventory">
+          <div class="section-header"><div><p class="eyebrow">Inventory</p><h1>Stock without the distortion</h1><p>Purchases affect cash. Cost of stock sold affects performance. Both stay visible.</p></div><button class="button primary" data-quick-add="inventory_purchase">+ Add stock order</button></div>
+          <div class="metric-strip" id="inventory-metrics"></div>
+          <div class="feature-grid equal">
+            <article class="panel"><div class="panel-heading"><div><p class="eyebrow">Stock movement</p><h2>Inventory position</h2></div></div><div id="inventory-flow" class="waterfall"></div></article>
+            <article class="panel"><div class="panel-heading"><div><p class="eyebrow">Purchase orders</p><h2>Planned and committed</h2></div></div><div id="stock-orders" class="record-list"></div></article>
+          </div>
+        </section>
+
+        <section class="page" id="page-expenses">
+          <div class="section-header"><div><p class="eyebrow">Expenses</p><h1>Every dollar accounted for</h1><p>Fixed, variable, people and one-off costs in one flexible structure.</p></div><button class="button primary" id="add-expense">+ Add expense</button></div>
+          <div class="metric-strip" id="expense-metrics"></div>
+          <article class="panel table-panel"><div class="panel-heading"><div><p class="eyebrow">Current month</p><h2>Transactions & adjustments</h2></div><select id="expense-filter" class="compact-select"><option value="all">All categories</option><option value="operating_expense">Operating</option><option value="staff">Staff</option><option value="fulfilment">Fulfilment</option><option value="marketing">Marketing</option><option value="one_off">One-off</option><option value="uncategorised">Uncategorised</option></select></div><div class="responsive-table"><table><thead><tr><th>Date</th><th>Item</th><th>Treatment</th><th>Status</th><th>Cash effect</th><th>Operating effect</th><th></th></tr></thead><tbody id="items-table"></tbody></table></div></article>
+        </section>
+
+        <section class="page" id="page-data">
+          <div class="section-header"><div><p class="eyebrow">Data & settings</p><h1>Make the model yours</h1><p>Targets and assumptions remain editable as the business changes.</p></div></div>
+          <div class="settings-grid">
+            <article class="panel"><div class="panel-heading"><div><p class="eyebrow">Targets</p><h2>Monthly plan</h2></div><button class="text-button open-settings">Edit</button></div><div id="settings-summary" class="summary-list"></div></article>
+            <article class="panel"><div class="panel-heading"><div><p class="eyebrow">Portability</p><h2>Back up your data</h2></div></div><p class="muted">Everything is stored in this browser. Export a backup before clearing browser data or changing devices.</p><div class="stacked-actions"><button class="button secondary" id="export-data">Export JSON backup</button><label class="button secondary file-button">Import JSON backup<input type="file" id="import-data" accept="application/json" hidden /></label><button class="text-button danger" id="reset-demo">Reset demonstration data</button></div></article>
+            <article class="panel"><div class="panel-heading"><div><p class="eyebrow">Data status</p><h2>Current inputs</h2></div></div><div id="data-health" class="summary-list"></div></article>
+            <article class="panel"><div class="panel-heading"><div><p class="eyebrow">CSV</p><h2>Import transactions</h2></div></div><p class="muted">Import a simple CSV containing date, name, amount, type and treatment columns.</p><label class="button secondary file-button">Choose CSV<input type="file" id="import-csv" accept=".csv,text/csv" hidden /></label><div id="csv-result" class="import-result"></div></article>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div class="modal-backdrop" id="item-modal" aria-hidden="true">
+      <section class="modal" role="dialog" aria-modal="true" aria-labelledby="item-modal-title">
+        <div class="modal-header"><div><p class="eyebrow">Flexible adjustment</p><h2 id="item-modal-title">Add an item</h2></div><button class="icon-button close-modal" aria-label="Close">×</button></div>
+        <form id="item-form">
+          <div class="form-grid">
+            <label class="full"><span>Item name</span><input name="name" required placeholder="e.g. Summer supplier deposit" /></label>
+            <label><span>Direction</span><select name="direction"><option value="out">Money out</option><option value="in">Money in</option></select></label>
+            <label><span>Amount</span><input name="amount" type="number" min="0" step="0.01" required placeholder="0.00" /></label>
+            <label class="full"><span>Financial treatment</span><select name="treatment"><option value="operating_expense">Operating expense</option><option value="one_off">One-off expense</option><option value="inventory_purchase">Inventory purchase</option><option value="staff">Staff</option><option value="fulfilment">Fulfilment</option><option value="marketing">Marketing</option><option value="cogs">COGS adjustment</option><option value="revenue">Sales revenue</option><option value="other_income">Other income</option><option value="cash_only">Cash only</option><option value="uncategorised">Uncategorised</option></select></label>
+            <label><span>Transaction date</span><input name="date" type="date" required /></label>
+            <label><span>Status</span><select name="status"><option value="paid">Paid / received</option><option value="committed">Committed</option><option value="planned">Planned</option></select></label>
+            <label><span>Recurrence</span><select name="recurrence"><option value="once">One-off</option><option value="weekly">Weekly</option><option value="fortnightly">Fortnightly</option><option value="monthly">Monthly</option><option value="quarterly">Quarterly</option><option value="annual">Annual</option></select></label>
+            <label><span>Due date <small>optional</small></span><input name="dueDate" type="date" /></label>
+            <label class="full"><span>Notes <small>optional</small></span><textarea name="notes" rows="2" placeholder="What is this for?"></textarea></label>
+          </div>
+          <div class="impact-preview"><p class="eyebrow">This item will affect</p><div id="impact-preview-grid"></div></div>
+          <div class="modal-actions"><button type="button" class="button secondary close-modal">Cancel</button><button type="submit" class="button primary">Save item</button></div>
+        </form>
+      </section>
+    </div>
+
+    <div class="modal-backdrop" id="today-modal" aria-hidden="true">
+      <section class="modal compact-modal" role="dialog" aria-modal="true" aria-labelledby="today-modal-title">
+        <div class="modal-header"><div><p class="eyebrow">Daily record</p><h2 id="today-modal-title">Update today</h2></div><button class="icon-button close-modal" aria-label="Close">×</button></div>
+        <form id="today-form"><div class="form-grid">
+          <label><span>Revenue</span><input name="revenue" type="number" min="0" step="0.01" required /></label>
+          <label><span>Orders</span><input name="orders" type="number" min="0" step="1" required /></label>
+          <label><span>Meta spend</span><input name="metaSpend" type="number" min="0" step="0.01" required /></label>
+          <label><span>Meta revenue</span><input name="metaRevenue" type="number" min="0" step="0.01" required /></label>
+          <label><span>Google spend</span><input name="googleSpend" type="number" min="0" step="0.01" required /></label>
+          <label><span>Google revenue</span><input name="googleRevenue" type="number" min="0" step="0.01" required /></label>
+          <label><span>EDM revenue</span><input name="edmRevenue" type="number" min="0" step="0.01" required /></label>
+          <label><span>Refunds</span><input name="refunds" type="number" min="0" step="0.01" required /></label>
+        </div><div class="modal-actions"><button type="button" class="button secondary close-modal">Cancel</button><button type="submit" class="button primary">Update dashboard</button></div></form>
+      </section>
+    </div>
+
+    <div class="modal-backdrop" id="person-modal" aria-hidden="true">
+      <section class="modal compact-modal" role="dialog" aria-modal="true" aria-labelledby="person-modal-title">
+        <div class="modal-header"><div><p class="eyebrow">People cost</p><h2 id="person-modal-title">Add a person</h2></div><button class="icon-button close-modal" aria-label="Close">×</button></div>
+        <form id="person-form"><div class="form-grid">
+          <label class="full"><span>Name or role</span><input name="name" required placeholder="e.g. Ecommerce manager" /></label>
+          <label><span>Employment type</span><select name="type"><option>Full time</option><option>Part time</option><option>Casual</option><option>Contractor</option></select></label>
+          <label><span>Base monthly cost</span><input name="base" type="number" min="0" step="0.01" required /></label>
+          <label><span>Super / on-costs</span><input name="onCosts" type="number" min="0" step="0.01" value="0" required /></label>
+          <label><span>Monthly budget</span><input name="budget" type="number" min="0" step="0.01" required /></label>
+        </div><div class="modal-actions"><button type="button" class="button secondary close-modal">Cancel</button><button type="submit" class="button primary">Add person</button></div></form>
+      </section>
+    </div>
+
+    <div class="modal-backdrop" id="settings-modal" aria-hidden="true">
+      <section class="modal settings-modal" role="dialog" aria-modal="true" aria-labelledby="settings-modal-title">
+        <div class="modal-header"><div><p class="eyebrow">Business assumptions</p><h2 id="settings-modal-title">Targets & settings</h2></div><button class="icon-button close-modal" aria-label="Close">×</button></div>
+        <form id="settings-form"><div class="settings-form-sections">
+          <fieldset><legend>Monthly targets</legend><div class="form-grid"><label><span>Revenue target</span><input name="revenueTarget" type="number" min="0" required /></label><label><span>Order target</span><input name="orderTarget" type="number" min="0" required /></label><label><span>Marketing budget</span><input name="marketingBudget" type="number" min="0" required /></label><label><span>Staff budget</span><input name="staffBudget" type="number" min="0" required /></label></div></fieldset>
+          <fieldset><legend>Channel budgets</legend><div class="form-grid"><label><span>Meta</span><input name="metaBudget" type="number" min="0" required /></label><label><span>Google</span><input name="googleBudget" type="number" min="0" required /></label><label><span>Other / testing</span><input name="otherBudget" type="number" min="0" required /></label></div></fieldset>
+          <fieldset><legend>Cost assumptions</legend><div class="form-grid"><label><span>COGS % of net revenue</span><input name="cogsPercent" type="number" min="0" max="100" step="0.1" required /></label><label><span>Payment fees %</span><input name="paymentFeePercent" type="number" min="0" max="100" step="0.1" required /></label><label><span>Fulfilment per order</span><input name="fulfilmentPerOrder" type="number" min="0" step="0.01" required /></label><label><span>Opening cash</span><input name="openingCash" type="number" step="0.01" required /></label><label><span>Opening inventory value</span><input name="inventoryValue" type="number" min="0" step="0.01" required /></label><label><span>Pace tolerance %</span><input name="paceTolerance" type="number" min="0" max="25" step="0.1" required /></label></div></fieldset>
+        </div><div class="modal-actions"><button type="button" class="button secondary close-modal">Cancel</button><button type="submit" class="button primary">Save settings</button></div></form>
+      </section>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="./app.js"></script>
+  </body>
+</html>
